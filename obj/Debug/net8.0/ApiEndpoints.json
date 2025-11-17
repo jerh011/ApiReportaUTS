@@ -8,5 +8,85 @@
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReportaUTS.Controllers.ReportesController",
+    "Method": "InsertarReportes",
+    "RelativePath": "api/Reportes",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dtos",
+        "Type": "ReportaUTS.Dtos.InsertarReporteDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReportaUTS.Controllers.ReportesController",
+    "Method": "ObtenerReportesPorVotos",
+    "RelativePath": "api/Reportes",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orden",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReportaUTS.Controllers.ReportesController",
+    "Method": "ContarVotosPorReporte",
+    "RelativePath": "api/Reportes/contarvotosporreporte",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idUsuario",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReportaUTS.Controllers.ReportesController",
+    "Method": "ReportePorUsuarioDto",
+    "RelativePath": "api/Reportes/reporteporusuario",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idUsuario",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReportaUTS.Controllers.VotoController",
+    "Method": "InsertarReportes",
+    "RelativePath": "api/Voto",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dtos",
+        "Type": "ReportaUTS.Dtos.VotoDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

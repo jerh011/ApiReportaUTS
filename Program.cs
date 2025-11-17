@@ -37,6 +37,8 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<ICategoria, CategoriaRepository>();
+builder.Services.AddScoped<IReportes, ReportesRepository>();
+builder.Services.AddScoped<IVotos, VotoRepository>();
 
 var app = builder.Build();
 app.UseCors("CORS_ENABLED");

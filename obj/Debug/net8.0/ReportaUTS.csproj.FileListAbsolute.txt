@@ -46,3 +46,4 @@ C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\obj\Debug\net8.0\refint\Report
 C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\obj\Debug\net8.0\ReportaUTS.pdb
 C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\obj\Debug\net8.0\ReportaUTS.genruntimeconfig.cache
 C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\obj\Debug\net8.0\ref\ReportaUTS.dll
+C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\obj\Debug\net8.0\ReportaUTS.sourcelink.json
