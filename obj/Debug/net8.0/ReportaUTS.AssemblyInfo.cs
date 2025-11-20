@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ReportaUTS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d0c5945ccca61e317a0532cdae8b1defb8977f91")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+525028c8d88fcfb20aad1b33303c9aade8613dfa")]
 [assembly: System.Reflection.AssemblyProductAttribute("ReportaUTS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ReportaUTS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

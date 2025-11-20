@@ -26,6 +26,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ReportaUTS.Controllers.LoginController",
+    "Method": "RegistroTemporal",
+    "RelativePath": "api/Login/Registro-Temporal",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registerTemp",
+        "Type": "ReportaUTS.Model.RegisterTemp",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ReportaUTS.Controllers.ReportesController",
     "Method": "InsertarReportes",
     "RelativePath": "api/Reportes",

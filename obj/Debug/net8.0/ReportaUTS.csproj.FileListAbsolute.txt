@@ -55,3 +55,5 @@ C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\bin\Debug\net8.0\Microsoft.Ide
 C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\bin\Debug\net8.0\Dapper.dll
