@@ -10,6 +10,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ReportaUTS.Controllers.LoginController",
+    "Method": "GetLogin",
+    "RelativePath": "api/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "logindto",
+        "Type": "ReportaUTS.Dtos.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ReportaUTS.Controllers.ReportesController",
     "Method": "InsertarReportes",
     "RelativePath": "api/Reportes",

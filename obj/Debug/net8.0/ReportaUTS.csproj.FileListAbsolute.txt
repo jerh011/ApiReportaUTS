@@ -47,3 +47,11 @@ C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\obj\Debug\net8.0\ReportaUTS.pd
 C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\obj\Debug\net8.0\ReportaUTS.genruntimeconfig.cache
 C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\obj\Debug\net8.0\ref\ReportaUTS.dll
 C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\obj\Debug\net8.0\ReportaUTS.sourcelink.json
+C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Jesus\source\repos\ReportaUTS\ReportaUTS\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
