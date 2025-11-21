@@ -17,7 +17,7 @@
       "applicationUrl": "http://localhost:5276",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "CONNECTION_STRING": "Host=localhost;Port=5432;Database=ReportaUTS;Username=ReportaUTS;Password=ReportaUTS",
+        "CONNECTION_STRING": "Host=ep-nameless-surf-a8knfktc-pooler.eastus2.azure.neon.tech; Database=neondb; Username=neondb_owner; Password=npg_OkU8t6yXZLDu; SSL Mode=VerifyFull; Channel Binding=Require;",
         "JWT_SECRET": "superSecretKeysuperSecretKeysuperSecretKeysuperSecretKeysuperSecretKeysuperSecretKey",
         "RT_SECRET": "superSecretKeysuperSecretKeysuperSecretKeysuperSecretKeysuperSecretKeysuperSecretKey"
       }
@@ -28,7 +28,7 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "CONNECTION_STRING": "Host=localhost;Port=5432;Database=ReportaUTS;Username=ReportaUTS;Password=ReportaUTS",
+        "CONNECTION_STRING": "Host=ep-nameless-surf-a8knfktc-pooler.eastus2.azure.neon.tech; Database=neondb; Username=neondb_owner; Password=npg_OkU8t6yXZLDu; SSL Mode=VerifyFull; Channel Binding=Require;",
         "JWT_SECRET": "superSecretKeysuperSecretKeysuperSecretKeysuperSecretKeysuperSecretKeysuperSecretKey",
         "RT_SECRET": "superSecretKeysuperSecretKeysuperSecretKeysuperSecretKeysuperSecretKeysuperSecretKey"
       }
