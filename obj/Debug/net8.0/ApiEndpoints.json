@@ -43,40 +43,8 @@
   },
   {
     "ContainingType": "ReportaUTS.Controllers.ReportesController",
-    "Method": "InsertarReportes",
-    "RelativePath": "api/Reportes",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "dtos",
-        "Type": "ReportaUTS.Dtos.InsertarReporteDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ReportaUTS.Controllers.ReportesController",
-    "Method": "ObtenerReportesPorVotos",
-    "RelativePath": "api/Reportes",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "orden",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ReportaUTS.Controllers.ReportesController",
     "Method": "ContarVotosPorReporte",
-    "RelativePath": "api/Reportes/contarvotosporreporte",
+    "RelativePath": "api/Reportes/ContarVotosPorReporte",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -91,8 +59,40 @@
   },
   {
     "ContainingType": "ReportaUTS.Controllers.ReportesController",
+    "Method": "ObtenerReportesPorVotos",
+    "RelativePath": "api/Reportes/ObtenerReportesPorVotos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orden",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReportaUTS.Controllers.ReportesController",
+    "Method": "InsertarReportes",
+    "RelativePath": "api/Reportes/Registrar reporte",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dtos",
+        "Type": "ReportaUTS.Dtos.InsertarReporteDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ReportaUTS.Controllers.ReportesController",
     "Method": "ReportePorUsuarioDto",
-    "RelativePath": "api/Reportes/reporteporusuario",
+    "RelativePath": "api/Reportes/ReportePorUsuarioDto",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

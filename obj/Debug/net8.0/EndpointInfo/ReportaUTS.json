@@ -79,7 +79,7 @@
         }
       }
     },
-    "/api/Reportes": {
+    "/api/Reportes/Registrar reporte": {
       "post": {
         "tags": [
           "Reportes"
@@ -108,7 +108,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Reportes/ObtenerReportesPorVotos": {
       "get": {
         "tags": [
           "Reportes"
@@ -129,7 +131,7 @@
         }
       }
     },
-    "/api/Reportes/reporteporusuario": {
+    "/api/Reportes/ReportePorUsuarioDto": {
       "get": {
         "tags": [
           "Reportes"
@@ -151,7 +153,7 @@
         }
       }
     },
-    "/api/Reportes/contarvotosporreporte": {
+    "/api/Reportes/ContarVotosPorReporte": {
       "get": {
         "tags": [
           "Reportes"
