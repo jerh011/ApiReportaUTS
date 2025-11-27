@@ -1,4 +1,5 @@
-﻿using Npgsql;
+﻿using Dapper;
+using Npgsql;
 using ReportaUTS.Conexion;
 using ReportaUTS.Dtos;
 using ReportaUTS.Interfaces;
@@ -8,7 +9,7 @@ namespace ReportaUTS.Repository
 {
     public class CategoriaRepository : ICategoria
     {
-        PostgreSQLConnection _connection;
+        private readonly PostgreSQLConnection _connection;
 
         public CategoriaRepository(PostgreSQLConnection connection)
         {
@@ -16,32 +17,19 @@ namespace ReportaUTS.Repository
         }
 
         protected NpgsqlConnection DbConnection() => new NpgsqlConnection(_connection.ConnectionString);
-
-        public async Task<CategoriaDto> GetCategoria()
+        public async Task<List<CategoriaDto>> GetCategoria()
         {
-            using var conn = DbConnection();
+            await using var conn = DbConnection();
             await conn.OpenAsync();
 
-            // Llamamos exactamente a la función que proporcionaste
-            using var cmd = new NpgsqlCommand("SELECT * FROM funcion_cantegorias();", conn);
+            // Ejecuta la función y mapea los resultados a CategoriaDto
+            var categorias = await conn.QueryAsync<CategoriaDto>(
+                "SELECT * FROM funcion_cantegorias();"
+            );
 
-            using var reader = await cmd.ExecuteReaderAsync();
-
-            CategoriaDto categoria = null;
-
-            if (await reader.ReadAsync())
-            {
-                categoria = new CategoriaDto
-                {
-                    IdCategoria = reader.GetInt32(reader.GetOrdinal("idcategorias")), // nombre de columna según tu función
-                    Nombre = reader.GetString(reader.GetOrdinal("nombre")),
-                    Descripcion = reader.IsDBNull(reader.GetOrdinal("descripcion"))
-                                  ? null
-                                  : reader.GetString(reader.GetOrdinal("descripcion"))
-                };
-            }
-
-            return categoria;
+            return categorias.AsList(); // Dapper tiene AsList() para convertir a List<T>
         }
+
+
     }
 }

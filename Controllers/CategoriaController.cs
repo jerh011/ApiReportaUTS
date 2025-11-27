@@ -7,15 +7,14 @@ namespace ReportaUTS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriaController : ControllerBase
+    public class CategoriaController : Controller
     {
         private readonly ICategoria _categoriaRepository;
-
-        public CategoriaController(ICategoria authRepository) => _categoriaRepository = authRepository;
+        public CategoriaController(ICategoria categoriaRepository) => _categoriaRepository = categoriaRepository;
         [HttpGet]
         public async Task<IActionResult> GetCategoria()
         {
-            CategoriaDto responseData = await _categoriaRepository.GetCategoria();
+            List<CategoriaDto> responseData = await _categoriaRepository.GetCategoria();
             return Ok(responseData);
         }
     }

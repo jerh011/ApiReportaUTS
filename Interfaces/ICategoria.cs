@@ -4,6 +4,6 @@ namespace ReportaUTS.Interfaces
 {
     public interface ICategoria
     {
-        public Task<CategoriaDto> GetCategoria();
+        public Task<List<CategoriaDto>> GetCategoria();
     }
 }
