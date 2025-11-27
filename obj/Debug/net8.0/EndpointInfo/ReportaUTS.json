@@ -279,17 +279,9 @@
             "type": "string",
             "nullable": true
           },
-          "correo": {
-            "type": "string",
-            "nullable": true
-          },
           "num_cel": {
             "type": "string",
             "nullable": true
-          },
-          "idrol": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false

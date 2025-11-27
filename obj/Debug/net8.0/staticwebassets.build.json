@@ -1,12 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "3RrChOROdHCSG69j/38DD6EMkSHfo735pU3xBz5O+KQ=",
-  "Source": "ReportaUTS",
-  "BasePath": "_content/ReportaUTS",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
-}
+{"Version":1,"Hash":"3RrChOROdHCSG69j/38DD6EMkSHfo735pU3xBz5O+KQ=","Source":"ReportaUTS","BasePath":"_content/ReportaUTS","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}

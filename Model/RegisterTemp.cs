@@ -6,8 +6,8 @@
         public string apellidos { get; set; }
         public string username { get; set; }
         public string contrasena { get; set; }
-        public string correo { get; set; }
+        //public string correo { get; set; }
         public string? num_cel { get; set; }
-        public int idrol { get; set; }
+        //public int idrol { get; set; }
     }
 }

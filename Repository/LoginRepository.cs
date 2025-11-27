@@ -22,38 +22,6 @@ namespace ReportaUTS.Repository
             _userRepository = new UserRepository(_connection);
         }
         protected NpgsqlConnection DbConnection() => new NpgsqlConnection(_connection.ConnectionString);
-
-        //        public async Task<UserDto> GetLogin(string user, string contraseña)
-        //        {
-        //            await using var conn = DbConnection();
-        //            await conn.OpenAsync();
-
-        //            await using var cmd = new NpgsqlCommand("SELECT * FROM Funcion_ObtenerLogin(@p_username, @p_contrasena);", conn);
-        //            cmd.Parameters.AddWithValue("p_username", user);
-        //            cmd.Parameters.AddWithValue("p_contrasena", contraseña);
-
-        //            await using var reader = await cmd.ExecuteReaderAsync();
-
-        //            if (await reader.ReadAsync())
-        //            {
-        //                return new UserDto
-        //                {
-        ////                    IdLogin = reader.GetInt64(reader.GetOrdinal("id_login")),
-        //                    Username = reader.GetString(reader.GetOrdinal("username")),
-        //                    Contrasena = reader.GetString(reader.GetOrdinal("contrasena")),
-        //                    Token = reader.IsDBNull(reader.GetOrdinal("token")) ? null : reader.GetString(reader.GetOrdinal("token")),
-        //                    IdUsuario = reader.GetInt32(reader.GetOrdinal("id_usuario")),
-        //                    Nombres = reader.GetString(reader.GetOrdinal("nombres")),
-        //                    Apellidos = reader.GetString(reader.GetOrdinal("apellidos")),
-        //                    //Correo = reader.GetString(reader.GetOrdinal("correo")),
-        //                    NoCel = reader.GetString(reader.GetOrdinal("no_cel")),
-        //                    CreatedAt = reader.GetDateTime(reader.GetOrdinal("created_at"))
-        //                };
-        //            }
-
-        //            return null; // No se encontró el usuario
-        //        }
-
         public async Task<LoginResponse> Login(LoginDto loginDto)
         {
 
@@ -117,12 +85,14 @@ namespace ReportaUTS.Repository
         /// </summary>
         /// <param name="userId">id del usuario a buscar</param>
         /// <returns></returns>
-        private async Task<UserDto?> FindUserById(int userId)
+        private async Task<LoginResponse?> FindUserById(int userId)
         {
             string sqlQuery = "select * from view_usuario where idUsuario = @userId;";
 
             UserDto? targetUser = (await _userRepository.UserQueryAsync(sqlQuery, new { userId })).FirstOrDefault();
-            return targetUser;
+            LoginResponse response= null;
+            response.User = targetUser;
+            return response;
         }
 
         /// <summary>
@@ -213,7 +183,7 @@ namespace ReportaUTS.Repository
 
             string[] tokens = GenerateTokens(userId);
 
-            UserDto user = await FindUserById(Convert.ToInt32(userId));
+            LoginResponse user = await FindUserById(Convert.ToInt32(userId));
 
             if (user.refreshToken == null) throw new HttpResponseException(StatusCodes.Status401Unauthorized);
 
@@ -221,7 +191,7 @@ namespace ReportaUTS.Repository
 
             if (!rtMatches)
             {
-                await LogOut(user.IdUsuario);
+                await LogOut(user.User.IdUsuario);
                 throw new HttpResponseException(StatusCodes.Status401Unauthorized);
             }
 
@@ -237,7 +207,7 @@ namespace ReportaUTS.Repository
         /// <summary>
         /// Valida el refreshToken (incluye la validacion de la expiracion) y si este es valido retorna
         /// una lista de los claims del token, si no, retorna una lista vacia
-        /// </summary>
+        /// </summary>A
         /// <param name="refreshToken">string del refreshtoken</param>
         /// <returns></returns>
         private List<Claim> GetClaimsFromToken(string refreshToken)
@@ -267,26 +237,26 @@ namespace ReportaUTS.Repository
             }
 
         }
-       public async Task<string> RegistroTemporal(RegisterTemp registerTemp)
-       {
+        public async Task<string> RegistroTemporal(RegisterTemp registerTemp)
+        {
             if (registerTemp is null)
                 throw new HttpResponseException(StatusCodes.Status400BadRequest);
 
             if (string.IsNullOrWhiteSpace(registerTemp.username) || string.IsNullOrWhiteSpace(registerTemp.contrasena))
                 throw new HttpResponseException(StatusCodes.Status400BadRequest);
 
+            // Hasheamos la contraseña antes de enviarla a la base de datos
             var hashedPassword = BC.EnhancedHashPassword(registerTemp.contrasena);
 
             string sql = @"
-                SELECT Funcion_RegistrarUsuario(
-                    p_nombre := @Nombre,
-                    p_apellidos := @Apellidos,
-                    p_username := @Username,
-                    p_contrasena := @Contrasena,
-                    p_correo := @Correo,
-                    p_idrol := @IdRol,
-                    p_num_cel := @NumCel
-                );";
+        SELECT public.funcion_registrarusuario(
+            p_nombre := @Nombre,
+            p_apellidos := @Apellidos,
+            p_username := @Username,
+            p_contrasena := @Contrasena,
+            p_num_cel := @NumCel
+        );";
+            //p_idrol := @IdRol,
 
             using var db = DbConnection();
             await db.OpenAsync();
@@ -299,19 +269,30 @@ namespace ReportaUTS.Repository
                     Apellidos = registerTemp.apellidos,
                     Username = registerTemp.username,
                     Contrasena = hashedPassword,
-                    Correo = registerTemp.correo,
-                    IdRol = registerTemp.idrol,
+                    //IdRol = registerTemp.idrol,
                     NumCel = registerTemp.num_cel
                 });
 
+                // Si la función devuelve un id válido, registro exitoso
                 return result > 0 ? "registro exitoso" : "error en el registro";
             }
             catch (Npgsql.PostgresException ex) when (ex.SqlState == "23505")
             {
-                // Este código SQLState significa violación de unique constraint
+                // Error de clave duplicada (unique constraint)
                 return $"El username '{registerTemp.username}' ya existe";
             }
-       }
+            //catch (Npgsql.PostgresException ex) when (ex.SqlState == "23503")
+            //{
+            //    // Error de clave foránea (por ejemplo id_rol inexistente)
+            //    return $"El rol con Id '{registerTemp.idrol}' no existe";
+            //}
+            catch (Exception ex)
+            {
+                // Otros errores
+                return $"Error inesperado: {ex.Message}";
+            }
+        }
+
 
     }
 }
