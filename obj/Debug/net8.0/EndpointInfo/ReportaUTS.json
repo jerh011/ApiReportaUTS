@@ -17,6 +17,18 @@
         }
       }
     },
+    "/api/Edificio": {
+      "get": {
+        "tags": [
+          "Edificio"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Login": {
       "post": {
         "tags": [
@@ -79,7 +91,7 @@
         }
       }
     },
-    "/api/Reportes/Registrar reporte": {
+    "/api/Reportes/RegistrarReporte": {
       "post": {
         "tags": [
           "Reportes"

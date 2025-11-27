@@ -12,7 +12,7 @@ namespace ReportaUTS.Controllers
     {
         private readonly IReportes _reportesRepository;
         public ReportesController(IReportes reporteRepository) => _reportesRepository = reporteRepository;
-        [HttpPost("Registrar reporte")]
+        [HttpPost("RegistrarReporte")]
         public async Task<IActionResult> InsertarReportes([FromBody] InsertarReporteDto dtos)
         {
 

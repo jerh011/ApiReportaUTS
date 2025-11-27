@@ -14,7 +14,7 @@ namespace ReportaUTS.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCategoria()
         {
-            CategoriaDto responseData = await _categoriaRepository.GetCategoria();
+            List<CategoriaDto> responseData = await _categoriaRepository.GetCategoria();
             return Ok(responseData);
         }
     }

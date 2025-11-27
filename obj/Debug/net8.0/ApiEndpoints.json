@@ -10,6 +10,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ReportaUTS.Controllers.EdificioController",
+    "Method": "GetEdificio",
+    "RelativePath": "api/Edificio",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ReportaUTS.Controllers.LoginController",
     "Method": "GetLogin",
     "RelativePath": "api/Login",
@@ -76,7 +86,7 @@
   {
     "ContainingType": "ReportaUTS.Controllers.ReportesController",
     "Method": "InsertarReportes",
-    "RelativePath": "api/Reportes/Registrar reporte",
+    "RelativePath": "api/Reportes/RegistrarReporte",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,

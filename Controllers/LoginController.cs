@@ -18,8 +18,7 @@ namespace ReportaUTS.Controllers
         [HttpPost]
         public async Task <IActionResult> GetLogin([FromBody] LoginDto logindto)
         {
-            //logindto.user = "jerh";
-            //logindto.contraseña = "123";
+        
             var holaa =await _loginRepository.Login(logindto);
             return Ok(holaa);
         }

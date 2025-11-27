@@ -3,22 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\Jesus\\Desktop\\api pwa\\ApiReportaUTS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A7F8419F-98E9-9967-95FD-0815018996D2}|ReportaUTS.csproj|c:\\users\\jesus\\desktop\\api pwa\\apireportauts\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7F8419F-98E9-9967-95FD-0815018996D2}|ReportaUTS.csproj|solutionrelative:controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7F8419F-98E9-9967-95FD-0815018996D2}|ReportaUTS.csproj|c:\\users\\jesus\\desktop\\api pwa\\apireportauts\\repository\\loginrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7F8419F-98E9-9967-95FD-0815018996D2}|ReportaUTS.csproj|solutionrelative:repository\\loginrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7F8419F-98E9-9967-95FD-0815018996D2}|ReportaUTS.csproj|c:\\users\\jesus\\desktop\\api pwa\\apireportauts\\repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7F8419F-98E9-9967-95FD-0815018996D2}|ReportaUTS.csproj|solutionrelative:repository\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A7F8419F-98E9-9967-95FD-0815018996D2}|ReportaUTS.csproj|c:\\users\\jesus\\desktop\\api pwa\\apireportauts\\model\\registertemp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7F8419F-98E9-9967-95FD-0815018996D2}|ReportaUTS.csproj|solutionrelative:model\\registertemp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A7F8419F-98E9-9967-95FD-0815018996D2}|ReportaUTS.csproj|c:\\users\\jesus\\desktop\\api pwa\\apireportauts\\controllers\\reportescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A7F8419F-98E9-9967-95FD-0815018996D2}|ReportaUTS.csproj|solutionrelative:controllers\\reportescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -30,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -38,67 +22,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "RegisterTemp.cs",
-              "DocumentMoniker": "C:\\Users\\Jesus\\Desktop\\api pwa\\ApiReportaUTS\\Model\\RegisterTemp.cs",
-              "RelativeDocumentMoniker": "Model\\RegisterTemp.cs",
-              "ToolTip": "C:\\Users\\Jesus\\Desktop\\api pwa\\ApiReportaUTS\\Model\\RegisterTemp.cs",
-              "RelativeToolTip": "Model\\RegisterTemp.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-27T04:34:50.464Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "LoginRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Jesus\\Desktop\\api pwa\\ApiReportaUTS\\Repository\\LoginRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\LoginRepository.cs",
-              "ToolTip": "C:\\Users\\Jesus\\Desktop\\api pwa\\ApiReportaUTS\\Repository\\LoginRepository.cs",
-              "RelativeToolTip": "Repository\\LoginRepository.cs",
-              "ViewState": "AgIAAOQAAAAAAAAAAAAewPwAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-27T01:14:34.898Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Jesus\\Desktop\\api pwa\\ApiReportaUTS\\Repository\\UserRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\UserRepository.cs",
-              "ToolTip": "C:\\Users\\Jesus\\Desktop\\api pwa\\ApiReportaUTS\\Repository\\UserRepository.cs",
-              "RelativeToolTip": "Repository\\UserRepository.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAmwEsAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-27T01:31:29.999Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "LoginController.cs",
-              "DocumentMoniker": "C:\\Users\\Jesus\\Desktop\\api pwa\\ApiReportaUTS\\Controllers\\LoginController.cs",
-              "RelativeDocumentMoniker": "Controllers\\LoginController.cs",
-              "ToolTip": "C:\\Users\\Jesus\\Desktop\\api pwa\\ApiReportaUTS\\Controllers\\LoginController.cs",
-              "RelativeToolTip": "Controllers\\LoginController.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAxwBUAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-27T01:31:16.886Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "ReportesController.cs",
               "DocumentMoniker": "C:\\Users\\Jesus\\Desktop\\api pwa\\ApiReportaUTS\\Controllers\\ReportesController.cs",
               "RelativeDocumentMoniker": "Controllers\\ReportesController.cs",
               "ToolTip": "C:\\Users\\Jesus\\Desktop\\api pwa\\ApiReportaUTS\\Controllers\\ReportesController.cs",
               "RelativeToolTip": "Controllers\\ReportesController.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-27T01:31:12.313Z",
+              "WhenOpened": "2025-11-27T11:59:10.41Z",
               "EditorCaption": ""
             }
           ]
