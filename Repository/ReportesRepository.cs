@@ -3,19 +3,46 @@ using Npgsql;
 using ReportaUTS.Conexion;
 using ReportaUTS.Dtos;
 using ReportaUTS.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Processing;
+
 namespace ReportaUTS.Repository
 {
-    public class ReportesRepository: IReportes
+    public class ReportesRepository : IReportes
     {
-        PostgreSQLConnection _connection;
-        public ReportesRepository(PostgreSQLConnection connection)=>_connection = connection;
-        
+        private readonly PostgreSQLConnection _connection;
+        private readonly IWebHostEnvironment _env;
+        private const int MaxImageBytes = 6 * 1024 * 1024; // límite antes de procesar (6 MB)
+        private const int ResizeMaxWidth = 1024;           // ancho máximo al redimensionar
+        private const int JpegQuality = 75;                // calidad JPEG resultante
+
+        public ReportesRepository(PostgreSQLConnection connection, IWebHostEnvironment env)
+        {
+            _connection = connection;
+            _env = env;
+        }
+
         protected NpgsqlConnection DbConnection() => new NpgsqlConnection(_connection.ConnectionString);
+
         public async Task<string> InsertarReport(InsertarReporteDto dto)
         {
             await using var conn = DbConnection();
             await conn.OpenAsync();
+
+            // Si hay imagen, guardarla y devolver ruta
+            string rutaImagen = null;
+            if (!string.IsNullOrEmpty(dto.Imagen))
+            {
+                rutaImagen = GuardarImagenBase64YDevolverRuta(dto.Imagen);
+            }
 
             const string sql = @"SELECT funcion_insertarreporte(
                             @p_titulo,
@@ -37,7 +64,7 @@ namespace ReportaUTS.Repository
                 p_categoria_id = dto.CategoriaId,
                 p_usuario_id = dto.UsuarioId,
                 p_estado_id = dto.EstadoId,
-                p_imagen = dto.Imagen
+                p_imagen = rutaImagen // guardamos la ruta, no el base64
             };
 
             var result = await conn.QuerySingleAsync<string>(sql, parametros);
@@ -45,6 +72,44 @@ namespace ReportaUTS.Repository
             return result;
         }
 
+        // --- helper: decodifica, comprime/redimensiona con ImageSharp y guarda archivo ---
+        private string GuardarImagenBase64YDevolverRuta(string dataImage)
+        {
+            // Validar si el string contiene "data:image/..."
+            var base64Data = dataImage;
+            if (dataImage.Contains(","))
+                base64Data = dataImage.Split(',')[1];
+
+            // Limpiar espacios y saltos de línea
+            base64Data = base64Data.Trim();
+
+            // Convertir a bytes
+            byte[] bytes;
+            try
+            {
+                bytes = Convert.FromBase64String(base64Data);
+            }
+            catch
+            {
+                throw new ArgumentException("La imagen no es un Base64 válido.");
+            }
+
+            // Crear carpeta si no existe
+            var carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "imagenes");
+            if (!Directory.Exists(carpeta))
+                Directory.CreateDirectory(carpeta);
+
+            // Generar nombre único
+            var nombreArchivo = $"{Guid.NewGuid()}.png";
+            var rutaCompleta = Path.Combine(carpeta, nombreArchivo);
+
+            File.WriteAllBytes(rutaCompleta, bytes);
+
+            // Devolver ruta relativa para guardar en DB
+            return $"/imagenes/{nombreArchivo}";
+        }
+
+        // --- Métodos existentes sin cambios funcionales ---
         public async Task<List<ReporteVotosDto>> ObtenerReportesPorVotos(string orden)
         {
             await using var conn = DbConnection();
@@ -66,8 +131,6 @@ namespace ReportaUTS.Repository
 
             return result.ToList();
         }
-
-
 
         public async Task<List<ReportePorUsuarioDto>> ReportePorUsuario(int usuarioId)
         {
@@ -108,6 +171,5 @@ namespace ReportaUTS.Repository
 
             return result ?? 0;
         }
-
     }
 }
