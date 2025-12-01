@@ -7,12 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Processing;
 
 namespace ReportaUTS.Repository
 {
@@ -64,7 +60,7 @@ namespace ReportaUTS.Repository
                 p_categoria_id = dto.CategoriaId,
                 p_usuario_id = dto.UsuarioId,
                 p_estado_id = dto.EstadoId,
-                p_imagen = rutaImagen // guardamos la ruta, no el base64
+                p_imagen = rutaImagen
             };
 
             var result = await conn.QuerySingleAsync<string>(sql, parametros);
@@ -72,15 +68,14 @@ namespace ReportaUTS.Repository
             return result;
         }
 
-        // --- helper: decodifica, comprime/redimensiona con ImageSharp y guarda archivo ---
+        // --- helper: decodifica, (opcionalmente) comprime/redimensiona y guarda archivo ---
         private string GuardarImagenBase64YDevolverRuta(string dataImage)
         {
-            // Validar si el string contiene "data:image/..."
-            var base64Data = dataImage;
-            if (dataImage.Contains(","))
-                base64Data = dataImage.Split(',')[1];
+            if (string.IsNullOrWhiteSpace(dataImage))
+                throw new ArgumentException("La imagen enviada está vacía.");
 
-            // Limpiar espacios y saltos de línea
+            // Extraer base64 si viene con data URI
+            var base64Data = dataImage.Contains(",") ? dataImage.Split(',', 2)[1] : dataImage;
             base64Data = base64Data.Trim();
 
             // Convertir a bytes
@@ -94,18 +89,26 @@ namespace ReportaUTS.Repository
                 throw new ArgumentException("La imagen no es un Base64 válido.");
             }
 
-            // Crear carpeta si no existe
-            var carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "imagenes");
+            // Validar tamaño (opcional)
+            if (bytes.Length > MaxImageBytes)
+            {
+                // Si quieres, aquí podrías procesar/redimensionar. Por ahora, lanzamos excepción.
+                // Alternativamente podrías redimensionar con ImageSharp antes de guardar.
+                throw new ArgumentException($"La imagen excede el tamaño máximo permitido de {MaxImageBytes} bytes.");
+            }
+
+            // Carpeta wwwroot/imagenes (usa WebRootPath proporcionado por IWebHostEnvironment)
+            var carpeta = Path.Combine(_env.WebRootPath ?? Directory.GetCurrentDirectory(), "imagenes");
             if (!Directory.Exists(carpeta))
                 Directory.CreateDirectory(carpeta);
 
-            // Generar nombre único
+            // Generar nombre único y guardar (aquí usamos .png por simplicidad)
             var nombreArchivo = $"{Guid.NewGuid()}.png";
             var rutaCompleta = Path.Combine(carpeta, nombreArchivo);
 
             File.WriteAllBytes(rutaCompleta, bytes);
 
-            // Devolver ruta relativa para guardar en DB
+            // Devolver ruta relativa para guardar en DB (empieza con '/')
             return $"/imagenes/{nombreArchivo}";
         }
 
@@ -141,6 +144,7 @@ namespace ReportaUTS.Repository
                                  titulo as Titulo,
                                  categoria as Categoria,
                                  estado as Estado,
+                                 privacidad_texto as PrivacidadTexto,
                                  fecha_formateada as FechaFormateada,
                                  edificio_descripcion as EdificioDescripcion
                                  FROM funcion_reporteporusuario(@p_usuario_id);";
@@ -151,6 +155,32 @@ namespace ReportaUTS.Repository
             };
 
             var result = await conn.QueryAsync<ReportePorUsuarioDto>(sql, parametros);
+
+            return result.ToList();
+        }
+
+        public async Task<List<ReportePorUsuarioWhitImagenDto>> ReportePorUsuarioWhitImagen(int usuarioId)
+        {
+            await using var conn = DbConnection();
+            await conn.OpenAsync();
+
+            const string sql = @"SELECT 
+                             reporte_id,
+                             titulo as Titulo,
+                             categoria as Categoria,
+                             estado as Estado,
+                             privacidad_texto as PrivacidadTexto,
+                             fecha_formateada as FechaFormateada,
+                             descripcion as descripcion,
+                             imagen as ImagenUrl
+                         FROM funcion_ReportePorUsuarioWhitImagen(@p_usuario_id);";  // <- nombre de función correcto
+
+            var parametros = new
+            {
+                p_usuario_id = usuarioId
+            };
+
+            var result = await conn.QueryAsync<ReportePorUsuarioWhitImagenDto>(sql, parametros);
 
             return result.ToList();
         }

@@ -28,10 +28,19 @@ namespace ReportaUTS.Controllers
         }
 
 
+
+
         [HttpGet("ReportePorUsuarioDto")]
         public async Task<IActionResult> ReportePorUsuarioDto([FromQuery] int idUsuario)
         {
             var reportes = await _reportesRepository.ReportePorUsuario(idUsuario);
+            return Ok(reportes);
+        }
+
+        [HttpGet("ReportePorUsuarioWhitImagenDto")]
+        public async Task<IActionResult> ReportePorUsuarioWhitImagenDto([FromQuery] int idUsuario)
+        {
+            var reportes = await _reportesRepository.ReportePorUsuarioWhitImagen(idUsuario);
             return Ok(reportes);
         }
 
@@ -41,6 +50,8 @@ namespace ReportaUTS.Controllers
             var reportes = await _reportesRepository.ContarVotosPorReporte(idUsuario);
             return Ok(reportes);
         }
+
+     
         //[HttpPost]
         //public async Task<IActionResult> RegistrarReporte ([FromBody] RegistrarReporteModel dtos)
         //{

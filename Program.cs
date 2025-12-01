@@ -7,19 +7,36 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// --- Validar variables de entorno críticas (fallar pronto y con mensaje claro) ---
+string jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET");
+if (string.IsNullOrWhiteSpace(jwtSecret))
+{
+    throw new InvalidOperationException("La variable de entorno JWT_SECRET no está configurada. Defínela antes de arrancar la aplicación.");
+}
+
+string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException("La variable de entorno CONNECTION_STRING no está configurada. Defínela antes de arrancar la aplicación.");
+}
+
+// Opcional: base url pública para construir ImagenUrl si decides hacerlo en backend
+// string apiBaseUrl = Environment.GetEnvironmentVariable("API_BASE_URL") ?? "http://localhost:5000";
+
 // JWT Authentication
 builder.Services.AddAuthentication("Bearer").AddJwtBearer(options =>
 {
     options.RequireHttpsMetadata = false;
-    string jwtSecret = Environment.GetEnvironmentVariable("JWT_SECRET");
+
     SymmetricSecurityKey signingKey = new(Encoding.UTF8.GetBytes(jwtSecret));
 
     options.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidateAudience = false,
         ValidateIssuer = false,
-        IssuerSigningKey = signingKey,
         ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,    // importante cuando defines IssuerSigningKey
+        IssuerSigningKey = signingKey,
         LifetimeValidator = (DateTime? notBefore, DateTime? expires, SecurityToken securityToken, TokenValidationParameters validationParameters) =>
         {
             return expires.HasValue && expires > DateTime.UtcNow;
@@ -55,40 +72,48 @@ builder.Services.AddSwaggerGen(config =>
     });
 });
 
-var PostgreSQLConnectionConfiguration = new PostgreSQLConnection(Environment.GetEnvironmentVariable("CONNECTION_STRING"));
+// Configuración de la conexión (validada arriba)
+var PostgreSQLConnectionConfiguration = new PostgreSQLConnection(connectionString);
 builder.Services.AddSingleton(PostgreSQLConnectionConfiguration);
 
-builder.Services.AddAuthorization();
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("CORS_ENABLED", builder =>
-    {
-        builder
-            .AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader();
-    });
-});
+// Registrar IHttpContextAccessor por si quieres construir URLs dinámicas desde controllers/repos
+builder.Services.AddHttpContextAccessor();
 
+// DI de repositorios / servicios
 builder.Services.AddScoped<ILogin, LoginRepository>();
 builder.Services.AddScoped<ICategoria, CategoriaRepository>();
 builder.Services.AddScoped<IReportes, ReportesRepository>();
 builder.Services.AddScoped<IVotos, VotoRepository>();
 builder.Services.AddScoped<IEdificio, EdificioRepository>();
 
+// CORS
+builder.Services.AddAuthorization();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CORS_ENABLED", policy =>
+    {
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
-// Middlewares
+// --- Middlewares (orden recomendado) ---
+app.UseRouting();
+
+// Habilitar archivos estáticos para servir wwwroot (ej: /imagenes/archivo.png)
+app.UseStaticFiles();
+
 app.UseCors("CORS_ENABLED");
 
-// Habilitar Swagger siempre (opcional para pruebas en Docker)
+// Habilitar Swagger siempre para pruebas (si lo quieres solo en dev, envuelve con env.IsDevelopment())
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// Si quieres HTTPS dentro de Docker, necesitarás certificados; de momento usamos HTTP
-// app.UseHttpsRedirection();  <- desactivado para Docker
-
-app.UseAuthentication(); // ⚠ importante para JWT
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
