@@ -30,3 +30,10 @@ COPY --from=build /app/out ./
 
 EXPOSE 5000
 ENTRYPOINT ["dotnet", "ReportaUTS.dll"]
+
+# 1)docker login
+# 2)docker tag reportauts-api jerh011/reportauts-api:latest
+# 3)docker push jerh011/reportauts-api:latest
+# 4)docker build -t reportauts-api .
+# 5)docker run -d -p 5000:5000 --name reportauts-container reportauts-api  
+# 6)docker pull jerh011/reportauts-api:latest 
